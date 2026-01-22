@@ -36,6 +36,7 @@ inspired by networking principles described in **RFC 7426**.
 - **Platform Plane**: safe state distribution and atomic updates
 - **Data Plane**: high-performance connection and traffic handling
 
+```
                          ┌───────────────────────────────┐
                          │           Control Plane       │
                          │───────────────────────────────│
@@ -73,7 +74,7 @@ inspired by networking principles described in **RFC 7426**.
                            │         Backends         │
                            │  Application Servers     │
                            └──────────────────────────┘
-
+```
 
 
 This separation allows the data plane to operate with minimal overhead while the
