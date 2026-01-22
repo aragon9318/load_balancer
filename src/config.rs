@@ -1,0 +1,2 @@
+// TODO: Basic configuration struct
+

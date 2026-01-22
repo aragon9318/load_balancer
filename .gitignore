@@ -1,0 +1,63 @@
+# Rust / Cargo
+/target/
+**/*.rs.bk
+Cargo.lock
+*.rmeta
+*.d
+*.o
+
+# OS / Temp
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+*.tmp
+*.bak
+
+# Editors / IDEs
+.vscode/
+.idea/
+*.code-workspace
+*.iml
+*.sublime-workspace
+*.sublime-project
+
+# Logs
+*.log
+logs/
+log/
+*.out
+
+# Secrets / Keys / Configs
+*.pem
+*.key
+*.crt
+*.env
+.env.*
+secrets/
+config/*.yaml
+config/*.yml
+config/*.json
+config/*.toml
+
+# Coverage / Testing
+/coverage/
+/*.gcda
+/*.gcno
+*.profraw
+*.profdata
+
+# Build / Temp Artifacts
+*.exe
+*.dll
+*.so
+*.dylib
+*.pdb
+*.class
+
+# Misc
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+/target
