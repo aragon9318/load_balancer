@@ -1,5 +1,5 @@
 
-use std::net::{TcpListener, TcpStream, SocketAddr};
+use std::net::{TcpListener, TcpStream, SocketAddr,Shutdown};
 
 use std::io::{Read, Write};
 use std::thread;
@@ -29,18 +29,34 @@ pub fn start_listener(ip_addr: SocketAddr){
             let _ = stream.set_write_timeout(Some(Duration::from_secs(5)));
             let _ = stream.set_read_timeout(Some(Duration::from_secs(5)));
             let _ = stream.set_nodelay(true);
-            let _ = stream.set_nonblocking(true);
+            let _ = stream.set_nonblocking(false);
             let mut buffer = [0u8; 1024];
-            //TODO: Read data in chunks and process accordingly, currently just reads the first chunk
-            match stream.read(&mut buffer) {
-                Ok(bytes_read) => {
-                    println!("Received {} bytes", bytes_read);
-                    //TODO: Write data into the appropriate destination
-                    let _ = stream.write_all(&buffer[..bytes_read]);
+            //TODO: Implement proper connection handling logic, reading bytes in a loop might hit blocks even when set_nonblocking is true
+            loop {
+                match stream.read(&mut buffer) {
+                    Ok(bytes_read) => {
+                        if bytes_read == 0 {
+                            return; // Connection closed
                 }
-                Err(e) => {
-                    eprintln!("Failed to read from connection: {}", e);
+                        println!("Received {} bytes", bytes_read);
+                        //TODO: Write data into the appropriate destination
+                        let _ = stream.write_all(&buffer[..bytes_read]);
+                    }
+                    // No data available yet, continue the loop
+                    
+                    Err(ref e) if e.kind() == std::io::ErrorKind::TimedOut => {
+                        println!("Read timed out, closing connection");
+                        break; 
+                    }
+                    Err(e) => {
+                        eprintln!("Failed to read from connection: {} {}", e, e.kind());
+                    }
                 }
             }
+            stream.shutdown(Shutdown::Write).ok();
+           
+            
+          
     }
+
 
