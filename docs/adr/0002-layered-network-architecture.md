@@ -25,11 +25,7 @@ strict separation between the **Data Plane**, **Platform Plane** and the **Contr
 - The **Platform Plane** provides the execution environment and system abstractions
 required by the Control Plane and Data Plane. It is responsible for exposing
 generic mechanisms for event notification, resource access, and lifecycle
-coordination.
-
-The Platform Plane does not implement protocol logic, policy decisions, or
-configuration semantics. It exists solely to support reliable and efficient
-execution of higher-level planes.
+coordination. The Platform Plane does not implement protocol logic, policy decisions, or configuration semantics. It exists solely to support reliable and efficient execution of higher-level planes.
 - The **Data Plane** is responsible exclusively for transport-level operations,
   including TCP connection handling, byte-stream I/O, and connection lifecycle
   management. It operates entirely in user space and remains protocol-agnostic.
