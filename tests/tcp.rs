@@ -11,7 +11,7 @@ mod tests {
     fn test_server_data_handling_large_payload() {
         // The server should respond to the large payload correctly,
         //  this because the buffer is 1024 bytes but the file is larger than that
-        let addr: SocketAddr = "127.0.0.1:8080".parse().unwrap();
+        let addr: SocketAddr = "127.0.0.1:8080".parse().expect("Invalid address");
         let large_payload = vec![1u8; 1024*10*10]; // 100KB payload
         let connected_stream = connect_to_server(addr, &large_payload);
         println!(
@@ -24,7 +24,7 @@ mod tests {
     #[test]
     fn test_tcp_server_echo() {
         //Currently the server echos back the received bytes
-        let addr: SocketAddr = "127.0.0.1:8080".parse().unwrap();
+        let addr: SocketAddr = "127.0.0.1:8080".parse().expect("Invalid address");
         let payload = vec![1u8; 1024];
         let connected_stream = connect_to_server(addr, &payload);
         assert_eq!(connected_stream, payload, "Received bytes do not match sent bytes");
@@ -40,7 +40,7 @@ mod tests {
         let mut buffer = [0u8; 1024];
         let mut received = Vec::with_capacity(message.len());
          while received.len() < message.len() && start.elapsed() < timeout{
-            let bytes_read = client.read(&mut buffer).unwrap();
+            let bytes_read = client.read(&mut buffer).unwrap();;
             received.extend_from_slice(&buffer[..bytes_read]);
         }
         
